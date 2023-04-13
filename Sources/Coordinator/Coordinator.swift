@@ -8,7 +8,7 @@ open class Coordinator: NSObject {
     public var viewControllers: [CoordinatorViewController.Type]  = []
     
     
-    override init() {
+    public override init() {
         super.init()
 
     }
