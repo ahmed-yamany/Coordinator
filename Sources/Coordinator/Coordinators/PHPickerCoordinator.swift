@@ -1,30 +1,31 @@
 //
-//  PdfPickerCoordinator.swift
+//  PHPickerCoordinator.swift
 //
 //
 //  Created by Ahmed Yamany on 10/06/2024.
 //
 
 import UIKit
+import PhotosUI
 
-public class PdfPickerCoordinator: Coordinator {
+public class PHPickerCoordinator: Coordinator {
     public let router: Router
-    public let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.pdf])
-
-    public init(router: Router, delegate: UIDocumentPickerDelegate) {
+    public private(set) var picker: PHPickerViewController!
+    
+    public init(router: Router, delegate: PHPickerViewControllerDelegate, configuration: PHPickerConfiguration) {
         self.router = router
-        picker.allowsMultipleSelection = true
+        picker = PHPickerViewController(configuration: configuration)
         picker.delegate = delegate
     }
-
-    public func start() { 
+    
+    public func start() {
         self.present()
     }
-
+    
     public func present(animated: Bool = true,
-                         presentationStyle: UIModalPresentationStyle = .automatic,
-                         transitionStyle: UIModalTransitionStyle = .coverVertical,
-                         completion: @escaping () -> Void = {}) {
+                        presentationStyle: UIModalPresentationStyle = .automatic,
+                        transitionStyle: UIModalTransitionStyle = .coverVertical,
+                        completion: @escaping () -> Void = {}) {
         router.present(
             picker,
             animated: animated,
@@ -37,5 +38,4 @@ public class PdfPickerCoordinator: Coordinator {
     public func push(animated: Bool = true, completion: @escaping () -> Void = {}) {
         router.push(picker, animated: animated, completion: completion)
     }
-    
 }
