@@ -17,6 +17,7 @@ public final class CameraPickerCoordinator: NSObject {
         self.router = router
         self.delegate = delegate
         self.infoKey = infoKey
+        picker.sourceType = .camera
     }
     
     public func start(completion: @escaping () -> Void = {}) {
