@@ -17,6 +17,8 @@ public final class CameraPickerCoordinator: NSObject {
         self.router = router
         self.delegate = delegate
         self.infoKey = infoKey
+        super.init()
+        picker.delegate = self
         picker.sourceType = .camera
     }
     
