@@ -1,24 +1,17 @@
 
 import UIKit
 
-public protocol CameraPickerDelegate: AnyObject {
-    func cameraPicker(didPick image: UIImage)
-}
-
 @MainActor
 public final class CameraPickerCoordinator: NSObject {
-    public let picker = UIImagePickerController()
+    public typealias Delegate =  UIImagePickerControllerDelegate & UINavigationControllerDelegate
 
+    public let picker = UIImagePickerController()
     public let router: Router
-    public let infoKey: UIImagePickerController.InfoKey
-    public weak var delegate: CameraPickerDelegate?
     
-    public init(router: Router, delegate: CameraPickerDelegate, infoKey: UIImagePickerController.InfoKey = .originalImage) {
+    public init(router: Router, delegate: Delegate) {
         self.router = router
-        self.delegate = delegate
-        self.infoKey = infoKey
         super.init()
-        picker.delegate = self
+        picker.delegate = delegate
         picker.sourceType = .camera
     }
     
@@ -44,23 +37,5 @@ public final class CameraPickerCoordinator: NSObject {
     public var showsCameraControls: Bool {
         get { picker.showsCameraControls }
         set { picker.showsCameraControls = newValue }
-    }
-}
-
-extension CameraPickerCoordinator: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    public func imagePickerController(
-        _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
-    ) {
-        if let image = info[infoKey] as? UIImage {
-            guard let delegate else {
-                debugPrint("Camera Picker Delegate is Nil")
-                return
-            }
-            delegate.cameraPicker(didPick: image)
-        } else {
-            debugPrint("Camera Picker Didn't Pick an Image")
-        }
-        picker.dismiss(animated: true)
     }
 }
