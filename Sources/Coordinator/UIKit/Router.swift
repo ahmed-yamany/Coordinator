@@ -1,7 +1,4 @@
 //
-//  Router.swift
-//  Shopfee
-//
 //  Created by Ahmed Yamany on 26/04/2024.
 
 import UIKit
@@ -106,5 +103,101 @@ open class Router {
     
     open func setViewController(_ viewController: UIViewController, animated: Bool = true, completion: @escaping () -> Void = {}) {
         self.setViewControllers([viewController], animated: animated, completion: completion)
+    }
+    
+    open func present(
+        _ viewController: UIViewController,
+        detents: [UISheetPresentationController.Detent],
+        selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier = .large,
+        grabberVisible: Bool = false,
+        cornerRadius: CGFloat? = nil,
+        scrollingExpandsWhenScrolledToEdge: Bool = true,
+        largestUndimmedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = nil,
+        animated: Bool = true,
+        completion: @escaping () -> Void = {}
+    ) {
+        
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = detents
+            sheet.selectedDetentIdentifier = selectedDetentIdentifier
+            sheet.prefersGrabberVisible = grabberVisible
+            sheet.preferredCornerRadius = cornerRadius
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = scrollingExpandsWhenScrolledToEdge
+            sheet.largestUndimmedDetentIdentifier = largestUndimmedDetentIdentifier
+        }
+        present(viewController, animated: animated, completion: completion)
+    }
+    
+    private func sheetPresentationController() -> UISheetPresentationController? {
+        guard let viewController = navigationController.presentedViewController,
+              let sheet = viewController.sheetPresentationController else {
+            return nil
+        }
+        return sheet
+    }
+    
+    open func sheetSelectedDetent( _ identifier: UISheetPresentationController.Detent.Identifier, animated: Bool = false) {
+        guard let sheet = sheetPresentationController() else {
+            return
+        }
+        
+        if animated {
+            sheet.animateChanges {
+                sheet.selectedDetentIdentifier = identifier
+            }
+        } else {
+            sheet.selectedDetentIdentifier = identifier
+        }
+    }
+    
+    open func sheetDetents( _ detents: [UISheetPresentationController.Detent], animated: Bool = false) {
+        guard let sheet = sheetPresentationController() else {
+            return
+        }
+        if animated {
+            sheet.animateChanges {
+                sheet.detents = detents
+            }
+        } else {
+            sheet.detents = detents
+        }
+    }
+    
+    open func sheetPrefersGrabberVisible(_ visible: Bool = false) {
+        guard let sheet = sheetPresentationController() else {
+            return
+        }
+        
+        sheet.prefersGrabberVisible = visible
+    }
+    
+    open func sheetCornerRadius( _ cornerRadius: CGFloat, animated: Bool = false) {
+        guard let sheet = sheetPresentationController() else {
+            return
+        }
+        
+        if animated {
+            sheet.animateChanges {
+                sheet.preferredCornerRadius = cornerRadius
+            }
+        } else {
+            sheet.preferredCornerRadius = cornerRadius
+        }
+    }
+    
+    open func sheetPrefersScrollingExpandsWhenScrolledToEdge(_ preferred: Bool = true) {
+        guard let sheet = sheetPresentationController() else {
+            return
+        }
+        
+        sheet.prefersScrollingExpandsWhenScrolledToEdge = preferred
+    }
+    
+    open func sheetLargestUndimmedDetentIdentifier(_ identifier: UISheetPresentationController.Detent.Identifier? = nil) {
+        guard let sheet = sheetPresentationController() else {
+            return
+        }
+        
+        sheet.largestUndimmedDetentIdentifier = identifier
     }
 }
