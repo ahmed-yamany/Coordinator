@@ -4,7 +4,7 @@
 //
 //  Created by Ahmed Yamany on 10/06/2024.
 //
-
+#if os(iOS)
 import UIKit
 import PhotosUI
 
@@ -39,3 +39,4 @@ public class PHPickerCoordinator: Coordinator {
         router.push(picker, animated: animated, completion: completion)
     }
 }
+#endif

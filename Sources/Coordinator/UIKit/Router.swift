@@ -1,6 +1,6 @@
 //
 //  Created by Ahmed Yamany on 26/04/2024.
-
+#if os(iOS)
 import UIKit
 
 @MainActor
@@ -201,3 +201,4 @@ open class Router {
         sheet.largestUndimmedDetentIdentifier = identifier
     }
 }
+#endif

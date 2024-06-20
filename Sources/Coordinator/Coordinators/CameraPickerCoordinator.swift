@@ -1,3 +1,4 @@
+#if os(iOS)
 import UIKit
 
 @MainActor
@@ -38,3 +39,4 @@ public final class CameraPickerCoordinator: NSObject {
         set { picker.showsCameraControls = newValue }
     }
 }
+#endif

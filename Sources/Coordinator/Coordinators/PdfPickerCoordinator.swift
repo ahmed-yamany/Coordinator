@@ -4,7 +4,7 @@
 //
 //  Created by Ahmed Yamany on 10/06/2024.
 //
-
+#if os(iOS)
 import UIKit
 
 public class PdfPickerCoordinator: Coordinator {
@@ -39,3 +39,4 @@ public class PdfPickerCoordinator: Coordinator {
     }
     
 }
+#endif

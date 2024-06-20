@@ -2,7 +2,7 @@
 //  Coordinator.swift
 //
 //  Created by Ahmed Yamany on 26/04/2024.
-
+#if os(iOS)
 import Foundation
 
 @MainActor
@@ -22,3 +22,4 @@ public extension Coordinator {
 }
 
 public typealias Action = () -> Void
+#endif

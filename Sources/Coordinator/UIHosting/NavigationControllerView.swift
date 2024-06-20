@@ -1,7 +1,7 @@
 //
 //  Created by Ahmed Yamany on 19/06/2024.
 //
-
+#if os(iOS)
 import SwiftUI
 
 private struct NavigationControllerViewRepresentable: UIViewControllerRepresentable {
@@ -34,3 +34,4 @@ public struct NavigationControllerView: View {
             .ignoresSafeArea()
     }
 }
+#endif

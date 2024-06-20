@@ -1,7 +1,7 @@
 //
 //  Created by Ahmed Yamany on 19/06/2024.
 //
-
+#if os(iOS)
 import SwiftUI
 
 @MainActor
@@ -128,3 +128,4 @@ open class UIHostingRouter: ObservableObject {
         router.sheetLargestUndimmedDetentIdentifier(identifier)
     }
 }
+#endif
